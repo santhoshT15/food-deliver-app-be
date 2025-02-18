@@ -6,7 +6,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Place Order for user fe
 const placeOrder = async (req, res) => {
-  const frontend_url = "https://santhosh-food-deliver-app.netlify.app";
+  // const frontend_url = "https://santhosh-food-deliver-app.netlify.app";
+  const { origin } = req.headers;
   try {
     const newOrder = new orderModel({
       userId: req.body.userId,
@@ -43,8 +44,8 @@ const placeOrder = async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       line_items: lineItem,
       mode: "payment",
-      success_url: `${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
-      cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder._id}`,
+      success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+      cancel_url: `${orgin}/verify?success=false&orderId=${newOrder._id}`,
     });
 
     res.json({ success: true, session_url: session.url });
