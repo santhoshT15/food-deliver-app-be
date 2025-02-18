@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Place Order for user fe
 const placeOrder = async (req, res) => {
-  const frontend_url = "https://santhosh-food-deliver-app.netlify.app";
+  const frontend_url = "https://food-deliver-app-iota.vercel.app";
   try {
     const newOrder = new orderModel({
       userId: req.body.userId,
